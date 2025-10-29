@@ -13,6 +13,8 @@ import {
   Timer,
   Settings,
   User,
+  Sparkles,
+  Repeat,
 } from 'lucide-react';
 
 import {
@@ -41,9 +43,11 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/tasks', label: 'Tasks', icon: CheckSquare },
+  { href: '/routines', label: 'Routines', icon: Repeat },
   { href: '/focus', label: 'Focus', icon: Timer },
-  { href: '/goals', label: 'Goals', icon: Target },
   { href: '/journal', label: 'Journal', icon: Book },
+  { href: '/goals', label: 'Goals', icon: Target },
+  { href: '/streaks', label: 'Streaks', icon: Sparkles },
   { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
 ];
 
@@ -63,7 +67,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             >
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-11.5L12 11l2.5-2.5L17 11l-5 5-5-5 2.5-2.5z" />
             </svg>
-            <h1 className="font-headline text-xl font-semibold">Zenith Zone</h1>
+            <h1 className="font-headline text-xl font-semibold">Dreamer</h1>
           </div>
         </SidebarHeader>
         <SidebarContent>
@@ -85,7 +89,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarContent>
         <SidebarFooter>
           <Link href="/settings" legacyBehavior passHref>
-            <SidebarMenuButton tooltip="Settings">
+            <SidebarMenuButton tooltip="Settings" isActive={pathname === '/settings'}>
               <Settings />
               <span>Settings</span>
             </SidebarMenuButton>
@@ -97,7 +101,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarTrigger className="flex md:hidden" />
           <div className="flex-1">
             <h1 className="font-headline text-lg font-semibold">
-              {navItems.find((item) => item.href === pathname)?.label || 'Zenith Zone'}
+              {navItems.find((item) => item.href === pathname)?.label || 'Settings'}
             </h1>
           </div>
           <DropdownMenu>
@@ -121,8 +125,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
