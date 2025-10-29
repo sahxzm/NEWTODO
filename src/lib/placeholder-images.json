@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "zen-garden",
+      "description": "A serene zen garden with raked sand and stones",
+      "imageUrl": "https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx6ZW4lMjBnYXJkZW58ZW58MHx8fHwxNzYxNjgyOTE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "zen garden"
+    }
+  ]
 }
