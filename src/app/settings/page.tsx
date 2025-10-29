@@ -170,8 +170,7 @@ export default function SettingsPage() {
                         <Switch id="focus-complete" defaultChecked />
                     </div>
                      <div className="flex items-center justify-between p-2 rounded-lg hover:bg-secondary">
-                        <Label htmlFor="goal-milestones">Goal Milestones</Label>
-                        <Switch id="goal-milestones" />
+                        <Label htmlFor="goal-milestones">Goal Milestones</Label>                        <Switch id="goal-milestones" />
                     </div>
                 </CardContent>
             </Card>
@@ -181,7 +180,7 @@ export default function SettingsPage() {
                 <CardHeader>
                     <CardTitle>Data Management</CardTitle>
                     <CardDescription>Export or clear your application data.</CardDescription>
-                </Header>
+                </CardHeader>
                 <CardContent className="space-y-4">
                     <Button>Export Data as JSON</Button>
                     <Button variant="destructive">Clear All Local Data</Button>
@@ -194,7 +193,7 @@ export default function SettingsPage() {
                 <CardHeader>
                     <CardTitle>About Dreamer</CardTitle>
                     <CardDescription>Version 1.0.0</CardDescription>
-                </Header>
+                </CardHeader>
                 <CardContent>
                     <p>Your personal OS for productivity and peace.</p>
                     <p className="text-sm text-muted-foreground mt-4">Made with ♡</p>
