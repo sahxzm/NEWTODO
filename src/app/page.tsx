@@ -25,31 +25,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/chart';
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 import { cn } from '@/lib/utils';
 import { getPlaceholderImage } from '@/lib/placeholder-images';
 import { tasks } from '@/lib/data';
+import { TaskCompletionChart } from './task-completion-chart';
 
-const chartData = [
-  { month: 'January', tasks: 12 },
-  { month: 'February', tasks: 18 },
-  { month: 'March', tasks: 24 },
-  { month: 'April', tasks: 20 },
-  { month: 'May', tasks: 28 },
-  { month: 'June', tasks: 32 },
-];
-
-const chartConfig = {
-  tasks: {
-    label: 'Tasks Completed',
-    color: 'hsl(var(--chart-1))',
-  },
-};
 
 export default function DashboardPage() {
   const heroImage = getPlaceholderImage('zen-garden');
@@ -131,23 +111,7 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
-            <ChartContainer config={chartConfig} className="h-[300px] w-full">
-              <BarChart accessibilityLayer data={chartData}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="month"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value.slice(0, 3)}
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent indicator="dot" />}
-                />
-                <Bar dataKey="tasks" fill="var(--color-tasks)" radius={8} />
-              </BarChart>
-            </ChartContainer>
+            <TaskCompletionChart />
           </CardContent>
         </Card>
         <Card className="rounded-2xl">
