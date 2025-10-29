@@ -1,6 +1,7 @@
 
 'use client'
 
+import { useTheme } from "next-themes"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -10,14 +11,15 @@ import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const themes = [
-  { value: 'light', label: 'Light', color: '#FFFFFF' },
-  { value: 'dark', label: 'Dark', color: '#1E1E1E' },
-  { value: 'purple', label: 'Purple', color: '#E9D5FF' },
-  { value: 'blue', label: 'Blue', color: '#DBEAFE' },
-  { value: 'green', label: 'Green', color: '#D1FAE5' },
+  { value: 'light', label: 'Light', color: '#FFF' },
+  { value: 'dark', label: 'Dark', color: '#18181b' },
+  { value: 'theme-batman', label: 'Batman', color: '#0A0A0B' },
+  { value: 'theme-hello-kitty', label: 'Hello Kitty', color: '#FFF0F5' },
 ]
 
 export default function SettingsPage() {
+  const { setTheme, theme } = useTheme()
+
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="space-y-2">
@@ -43,25 +45,22 @@ export default function SettingsPage() {
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
                         <Label>Theme</Label>
-                        <RadioGroup defaultValue="purple" className="flex items-center gap-4">
-                            {themes.map(theme => (
-                                <div key={theme.value} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={theme.value} id={`theme-${theme.value}`} />
-                                    <Label htmlFor={`theme-${theme.value}`} className="flex items-center gap-2 cursor-pointer">
-                                        <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: theme.color }}></div>
-                                        {theme.label}
+                        <RadioGroup 
+                          defaultValue={theme} 
+                          onValueChange={setTheme}
+                          className="flex flex-wrap items-center gap-4"
+                        >
+                            {themes.map(themeOption => (
+                                <div key={themeOption.value} className="flex items-center space-x-2">
+                                    <RadioGroupItem value={themeOption.value} id={`theme-${themeOption.value}`} />
+                                    <Label htmlFor={`theme-${themeOption.value}`} className="flex items-center gap-2 cursor-pointer">
+                                        <div className="w-4 h-4 rounded-full border" style={{ backgroundColor: themeOption.color }}
+                                          data-ai-hint={`${themeOption.label.toLowerCase()} color swatch`}></div>
+                                        {themeOption.label}
                                     </Label>
                                 </div>
                             ))}
                         </RadioGroup>
-                    </div>
-                     <div className="space-y-2">
-                        <Label htmlFor="bg-upload">Custom Background</Label>
-                        <div className="flex items-center gap-4">
-                           <Input id="bg-upload" type="file" className="max-w-sm" />
-                           <Button variant="ghost">Remove</Button>
-                        </div>
-                        <p className="text-xs text-muted-foreground">Upload an image to use as your background.</p>
                     </div>
                 </CardContent>
             </Card>
