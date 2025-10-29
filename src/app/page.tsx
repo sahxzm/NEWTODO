@@ -27,6 +27,7 @@ import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 import { getPlaceholderImage } from '@/lib/placeholder-images';
 import { tasks } from '@/lib/data';
+import { TaskCompletionChart } from '@/app/task-completion-chart';
 
 
 export default function DashboardPage() {
@@ -118,7 +119,7 @@ export default function DashboardPage() {
             </Link>
        </div>
 
-      <div className="grid gap-4 md:gap-8">
+      <div className="grid gap-4 md:gap-8 lg:grid-cols-2">
         <Card className="rounded-2xl">
           <CardHeader>
             <CardTitle>Today's Tasks</CardTitle>
@@ -149,6 +150,17 @@ export default function DashboardPage() {
                     ))}
                 </div>
             </div>
+          </CardContent>
+        </Card>
+        <Card className="rounded-2xl">
+          <CardHeader>
+            <CardTitle>Monthly Task Completions</CardTitle>
+            <CardDescription>
+              A look at your productivity over the past few months.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TaskCompletionChart />
           </CardContent>
         </Card>
       </div>
