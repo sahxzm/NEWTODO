@@ -1,3 +1,4 @@
+
 import {
   Accordion,
   AccordionContent,
@@ -9,10 +10,15 @@ import { bookmarkGroups } from '@/lib/data';
 import type { Bookmark } from '@/lib/types';
 import * as LucideIcons from 'lucide-react';
 
+const TriangleIcon = ({ className }: { className: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M12 2L2 22H22L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+  </svg>
+);
+
 const Icon = ({ name, className }: { name: Bookmark['icon']; className: string }) => {
   if (name === 'Triangle') {
-    const TriangleIcon = () => <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}><path d="M12 2L2 22H22L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg>;
-    return <TriangleIcon />;
+    return <TriangleIcon className={className} />;
   }
   if (name === 'Palette') {
     const PaletteIcon = LucideIcons['Palette'];
