@@ -214,5 +214,8 @@
     background-position: center;
     opacity: var(--background-opacity);
     z-index: -1;
+    transition: background-image 0.5s ease-in-out;
   }
 }
+
+    

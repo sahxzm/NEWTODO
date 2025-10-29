@@ -1,6 +1,7 @@
 
 'use client'
 
+import React from 'react';
 import { useTheme } from "next-themes"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -8,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 const themes = [
   { value: 'light', label: 'Light', color: '#FFF' },
@@ -18,7 +21,60 @@ const themes = [
 ]
 
 export default function SettingsPage() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme } = useTheme();
+  const { toast } = useToast();
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        toast({
+          title: 'File too large',
+          description: 'Please select an image smaller than 2MB.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        try {
+          localStorage.setItem('custom-background', result);
+          document.documentElement.style.setProperty('--custom-background-image', `url(${result})`);
+          document.documentElement.style.setProperty('--background-opacity', '0.15');
+          toast({
+            title: 'Success!',
+            description: 'Your custom background has been applied.',
+          });
+        } catch (error) {
+          toast({
+            title: 'Storage Error',
+            description: 'Could not save the background. The image might be too large for local storage.',
+            variant: 'destructive',
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const clearCustomBackground = () => {
+    localStorage.removeItem('custom-background');
+    document.documentElement.style.setProperty('--custom-background-image', 'none');
+    // We need to re-apply the current theme's background if it has one
+    const currentTheme = themes.find(t => t.value === theme);
+    if (currentTheme?.value.startsWith('theme-')) {
+        // This is a crude way, ideally the theme provider handles this
+        // For now, we manually re-set theme to re-trigger styles
+        setTheme('light');
+        setTimeout(() => setTheme(currentTheme.value), 50);
+    }
+    toast({
+      title: 'Background Cleared',
+      description: 'Your custom background has been removed.',
+    });
+  };
 
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -47,7 +103,10 @@ export default function SettingsPage() {
                         <Label>Theme</Label>
                         <RadioGroup
                           defaultValue={theme}
-                          onValueChange={setTheme}
+                          onValueChange={(value) => {
+                            localStorage.removeItem('custom-background'); // clear custom bg on theme change
+                            setTheme(value);
+                          }}
                           className="flex flex-wrap items-center gap-4"
                         >
                             {themes.map(themeOption => (
@@ -61,6 +120,23 @@ export default function SettingsPage() {
                                 </div>
                             ))}
                         </RadioGroup>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>Custom Background</Label>
+                      <div className="flex items-center gap-2">
+                        <Button onClick={() => fileInputRef.current?.click()}>Upload Image</Button>
+                        <Button variant="ghost" onClick={clearCustomBackground}>Clear</Button>
+                        <Input 
+                          type="file" 
+                          ref={fileInputRef} 
+                          className="hidden" 
+                          accept="image/png, image/jpeg, image/gif, image/webp"
+                          onChange={handleFileChange} 
+                        />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Upload a custom wallpaper. Overrides theme backgrounds. (Max 2MB)
+                      </p>
                     </div>
                 </CardContent>
             </Card>
@@ -105,7 +181,7 @@ export default function SettingsPage() {
                 <CardHeader>
                     <CardTitle>Data Management</CardTitle>
                     <CardDescription>Export or clear your application data.</CardDescription>
-                </CardHeader>
+                </Header>
                 <CardContent className="space-y-4">
                     <Button>Export Data as JSON</Button>
                     <Button variant="destructive">Clear All Local Data</Button>
@@ -118,7 +194,7 @@ export default function SettingsPage() {
                 <CardHeader>
                     <CardTitle>About Dreamer</CardTitle>
                     <CardDescription>Version 1.0.0</CardDescription>
-                </CardHeader>
+                </Header>
                 <CardContent>
                     <p>Your personal OS for productivity and peace.</p>
                     <p className="text-sm text-muted-foreground mt-4">Made with ♡</p>
