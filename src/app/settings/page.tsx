@@ -14,6 +14,7 @@ const themes = [
   { value: 'dark', label: 'Dark', color: '#18181b' },
   { value: 'theme-batman', label: 'Batman', color: '#0A0A0B' },
   { value: 'theme-hello-kitty', label: 'Hello Kitty', color: '#FFF0F5' },
+  { value: 'theme-spiderman', label: 'Spiderman', color: '#E62E04' },
 ]
 
 export default function SettingsPage() {

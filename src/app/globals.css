@@ -154,6 +154,44 @@
     --custom-background-image: url('https://picsum.photos/seed/kitty/1920/1080');
     --background-opacity: 0.1;
   }
+
+  .theme-spiderman {
+    --background: 220 40% 10%;
+    --foreground: 0 0% 98%;
+    --card: 220 40% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 220 40% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 80% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 30% 25%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 220 30% 25%;
+    --muted-foreground: 220 10% 70%;
+    --accent: 210 90% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 40% 20%;
+    --input: 220 40% 20%;
+    --ring: 0 80% 60%;
+    --chart-1: 0 80% 60%;
+    --chart-2: 210 90% 50%;
+    --chart-3: 0 0% 98%;
+    --chart-4: 220 20% 50%;
+    --chart-5: 0 0% 70%;
+    --radius: 0.75rem;
+    --sidebar-background: 220 40% 15%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 0 80% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 90% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 40% 20%;
+    --sidebar-ring: 0 80% 60%;
+    --custom-background-image: url('https://picsum.photos/seed/spiderman/1920/1080');
+    --background-opacity: 0.1;
+  }
 }
 
 @layer base {
